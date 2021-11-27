@@ -8,9 +8,7 @@ def main():
         
         if contenido.status_code == 200:
             convertir = contenido.json() # la variable converir se convierte en un diccionario con la funion .json
-            print(convertir.get("date", "No encontro nada"))
-       
-            
+                 
     except Exception as e:
         print(f"Este es el error encontrado: {e}")
         

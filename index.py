@@ -4,7 +4,7 @@ import json
 
 def obtenerDatos():
     try:    
-        url = 'https://api.covidtracking.com/v1/us/20200501.json'
+        url = 'https://api.covidtracking.com/v1/us/daily.json'
         contenido = requests.get(url)
         
         if contenido.status_code == 200:
@@ -25,12 +25,14 @@ def main():
     menu = """
         Bienvenido a la API coronavirus, porfavor elija la fecha para obtener los resultados de dicha fecha.
         ingrese la fecha en el formato '20210411' año, mes y dia: """
-    fecha = input(menu)
+    fecha = int(input(menu))
+    
     datos = obtenerDatos()
-    datoFecha = datos.get('date')
-    print(datoFecha) 
-    for datoFecha in datos:
-        print(datoFecha)
+    
+    for dato in datos:
+        if dato.get("date") == fecha:
+            print(fecha)
+    
 
 
 if __name__ == '__main__':

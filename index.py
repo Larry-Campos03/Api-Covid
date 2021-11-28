@@ -16,8 +16,14 @@ def obtenerDatos():
     finally:
         return convertir
 
-def imprimirDatos():
-    pass
+def imprimirDatos(dato1, dato2, dato3, dato4):
+    total = f"""
+    fecha: {dato1}
+    casos positivos: {dato2}
+    casos negativos: {dato3}
+    muertos: {dato4}
+    """
+    print(total)
 
 
 def main():
@@ -31,7 +37,12 @@ def main():
     
     for dato in datos:
         if dato.get("date") == fecha:
-            print(fecha)
+            fecha = dato.get("date")
+            positivos = dato.get("positive")
+            negativos = dato.get("negative")
+            muertos = dato.get("death")
+            imprimirDatos(fecha, positivos, negativos, muertos)
+            break
     
 
 

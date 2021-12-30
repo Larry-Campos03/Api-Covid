@@ -1,5 +1,6 @@
 import requests
 import json
+import os
 
 
 def obtenerDatos():
@@ -29,22 +30,27 @@ def imprimirDatos(dato1, dato2, dato3, dato4):
 def main():
     
     menu = """
-        Bienvenido a la API coronavirus, porfavor elija la fecha para obtener los resultados de dicha fecha.
-        ingrese la fecha en el formato '20210411' año, mes y dia: """
-    fecha = int(input(menu))
+        Bienvenido a la API coronavirus, por favor elija la fecha para obtener los resultados de dicha fecha.
+         Ingrese la fecha en el formato '20210411' año, mes y día: """
     
-    datos = obtenerDatos()
-    
-    for dato in datos:
-        if dato.get("date") == fecha:
-            fecha = dato.get("date")
-            positivos = dato.get("positive")
-            negativos = dato.get("negative")
-            muertos = dato.get("death")
-            imprimirDatos(fecha, positivos, negativos, muertos)
-            break
-    
-
-
+    ingresar = True
+    while ingresar:
+        
+        fecha = int(input(menu))
+        datos = obtenerDatos()
+        
+        for dato in datos:
+            if dato.get("date") == fecha:
+                fecha = dato.get("date")
+                positivos = dato.get("positive")
+                negativos = dato.get("negative")
+                muertos = dato.get("death")
+                imprimirDatos(fecha, positivos, negativos, muertos)             
+                break
+            
+        print(" ")
+        ingresar = input("¿Quiere buscar otros resultados? (Si/No) ").title() == 'Si'
+        os.system("clear")
+        
 if __name__ == '__main__':
     main()

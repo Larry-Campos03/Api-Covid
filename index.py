@@ -1,6 +1,7 @@
 import requests
 import json
 import os
+from datetime import datetime
 
 
 def obtenerDatos():
@@ -30,21 +31,27 @@ def imprimirDatos(dato1, dato2, dato3, dato4):
 def main():
     
     menu = """
-        Bienvenido a la API coronavirus, por favor elija la fecha para obtener los resultados de dicha fecha.
-         Ingrese la fecha en el formato '20210411' año, mes y día: """
+        Bienvenido a la API coronavirus, por favor elija el año, mes y año para obtener los resultados de dicha fecha.
+        Tenga en cuenta que el rango de las fechas es de 2020-01-03 hasta 2021-03-07.
+        """
     
     ingresar = True
     while ingresar:
         
-        fecha = int(input(menu))
+        año = input("Ingrese el año: ")
+        mes = input("Ingrese el mes: ")
+        dia = input("Ingrese el dia: ")
+        fecha = año + mes + dia
+        print(int(fecha))
         datos = obtenerDatos()
         
         for dato in datos:
-            if dato.get("date") == fecha:
-                fecha = dato.get("date")
-                positivos = dato.get("positive")
-                negativos = dato.get("negative")
-                muertos = dato.get("death")
+            if dato.get("date") == int(fecha):
+                fechaObtenida = str(dato.get("date"))
+                fecha = datetime.strptime(fechaObtenida, "%Y%m%d")
+                positivos = float(dato.get("positive"))
+                negativos = float(dato.get("negative"))
+                muertos = float(dato.get("death"))
                 imprimirDatos(fecha, positivos, negativos, muertos)             
                 break
             
